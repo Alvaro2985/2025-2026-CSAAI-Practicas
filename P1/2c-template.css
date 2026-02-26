@@ -1,0 +1,266 @@
+/* Importación de fuente moderna */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+:root {
+    --primary-color: #0077b6; /* Azul deportivo */
+    --secondary-color: #2b028a;
+    --accent-color: #fb8500; /* Naranja para detalles/botones */
+    --bg-color: #f8f9fa;
+    --text-color: #333;
+    --white: #ffffff;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Ruta de tu imagen (puede ser local o un link de internet) */
+    background-image: url('fondo_campo.jpg');
+    
+    /* Ajustes para que la imagen se vea perfecta */
+    background-size: cover;       /* Cubre toda la pantalla sin deformarse */
+    background-position: center;  /* Centra la imagen */
+    background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
+    background-repeat: no-repeat; /* Evita que la imagen se duplique */
+    
+    color: var(--text-color);
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Encabezado principal */
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+
+    border-bottom: 4px solid #ffffff; 
+}
+h2 {
+    text-align: center;
+    color: var(--secondary-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+}
+
+/* Contenedor de Flexbox para las columnas */
+.fila {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Estilo común para columnas */
+.columna {
+    background: var(--white);
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease;
+}
+
+.columna:hover {
+    transform: translateY(-5px);
+}
+
+.izquierda {
+    flex: 2; /* Más ancha para el contenido principal */
+    min-width: 300px;
+}
+
+.derecha {
+    flex: 1; /* Más estrecha para info lateral */
+    min-width: 250px;
+    background: linear-gradient(135deg, #ffffff 0%, #e9ecef 100%);
+}
+
+/* Imágenes responsivas y estilizadas */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    display: block;
+    margin: 0 auto 15px;
+}
+
+#isco_españa {
+    border: 4px solid var(--primary-color);
+    padding: 5px;
+    object-fit: cover;
+}
+
+/* Botón moderno */
+button {
+    background-color: var(--primary-color);
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: 15px;
+}
+
+button:hover {
+    background-color: var(--accent-color);
+}
+
+button a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* Contenedor para 3 columnas */
+.fila-triple {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 40px auto;
+    flex-wrap: wrap;
+}
+
+/* Cada una de las 3 columnas iguales */
+.columna-3 {
+    flex: 1; /* Esto obliga a que todas midan lo mismo */
+    min-width: 280px;
+    background: rgba(255, 255, 255, 0.15); /* Efecto cristal */
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 25px;
+    border-radius: 20px;
+    color: white;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.columna-3 h3 {
+    color: #fb8500; /* Naranja para resaltar títulos */
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+/* Estilos de listas y textos internos */
+.lista-info {
+    list-style: none;
+    padding: 0;
+    text-align: left;
+}
+
+.lista-info li {
+    margin-bottom: 12px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.lista-info li::before {
+    content: '▹';
+    position: absolute;
+    left: 0;
+    color: #fb8500;
+}
+
+.stat-item {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(0, 0, 0, 0.2);
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.centro {
+    text-align: center;
+    margin-top: 30px;
+}
+
+/* Proyects.html */
+/* Estilo para el título subrayado moderno */
+.titulo-subrayado {
+    display: inline-block;
+    border-bottom: 4px solid #fb8500; /* La línea naranja que pediste */
+    padding-bottom: 5px;
+    margin-bottom: 40px;
+    color: white; /* Resalta sobre el fondo oscuro */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+/* Contenedor tipo Grid para los clubes */
+.contenedor-clubes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    max-width: 1200px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+}
+
+/* Tarjetas de Club individuales */
+.tarjeta-club {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
+    padding: 30px;
+    color: white;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.tarjeta-club:hover {
+    transform: translateY(-10px);
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fb8500;
+}
+
+.tarjeta-club h3 {
+    margin-top: 15px;
+    color: #fb8500;
+}
+
+/* Etiqueta pequeña (Badge) */
+.badge {
+    position: absolute;
+    top: -12px;
+    right: 20px;
+    background: #fb8500;
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.especial {
+    border: 1px dashed #fb8500;
+}
+
+.centro {
+    text-align: center;
+}
+
+/* Responsivo para móviles */
+@media (max-width: 900px) {
+    .columna-3 {
+        flex: 1 1 100%; /* En móviles ocupan todo el ancho */
+    }
+}
+
+
+
+/* Ajustes para móviles */
+@media (max-width: 768px) {
+    .fila {
+        flex-direction: column;
+    }
+}
