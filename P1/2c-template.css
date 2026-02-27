@@ -313,7 +313,7 @@ button{
     align-self: flex-start; /* El botón se ajusta al texto */
 }
 
-.btn-card a {
+.btn-card {
     display: block;
     padding: 8px 20px;
     color: #fb8500;
@@ -327,7 +327,7 @@ button{
     background-color: #fb8500;
 }
 
-.btn-card:hover a {
+.btn-card:hover{
     color: white;
 }
 
