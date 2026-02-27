@@ -14,10 +14,10 @@ body {
     font-family: 'Poppins', sans-serif;
     background-image: url('fondo_campo.jpg');
     
-    background-size: cover;       /* Cubre toda la pantalla sin deformarse */
-    background-position: center;  /* Centra la imagen */
-    background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
-    background-repeat: no-repeat; /* Evita que la imagen se duplique */
+    background-size: cover;       
+    background-position: center;  
+    background-attachment: fixed; 
+    background-repeat: no-repeat; 
 
 }
 
