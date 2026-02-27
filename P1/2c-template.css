@@ -19,7 +19,6 @@ body {
     background-attachment: fixed; /* El fondo se queda quieto al hacer scroll */
     background-repeat: no-repeat; /* Evita que la imagen se duplique */
 
-
 }
 
 /* Encabezado principal */
@@ -43,7 +42,7 @@ h2 {
     margin-bottom: 30px;
 }
 
-/* Contenedor de Flexbox para las columnas */
+/* Contenedor principal para las columnas */
 .fila {
     display: flex;
     flex-wrap: wrap;
@@ -59,6 +58,7 @@ h2 {
     border-radius: 15px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
     transition: transform 0.3s ease;
+    text-align: justify;
 }
 
 .columna:hover {
@@ -124,7 +124,7 @@ button a {
 
 /* Cada una de las 3 columnas iguales */
 .columna-3 {
-    flex: 1; /* Esto obliga a que todas midan lo mismo */
+    flex: 1; 
     min-width: 280px;
     background: rgba(255, 255, 255, 0.15); /* Efecto cristal */
     backdrop-filter: blur(15px);
@@ -137,7 +137,7 @@ button a {
 }
 
 .columna-3 h3 {
-    color: #fb8500; /* Naranja para resaltar títulos */
+    color: #fb8500;
     margin-bottom: 20px;
     font-size: 1.5rem;
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
@@ -208,7 +208,7 @@ button a {
     font-size: 1.1rem;
     line-height: 1.8;
     color: white;
-    text-align: justify; /* <--- Esta es la clave */
+    text-align: justify;
 }
 
 .imagen-vida {
@@ -234,28 +234,19 @@ button a {
     font-style: italic;
 }
 
-/* Ajuste para pantallas pequeñas */
-@media (max-width: 768px) {
-    .contenido-vida {
-        flex-direction: column;
-    }
-    .texto-vida {
-        text-align: center;
-    }
-}
 
 /* Proyects.html */
 /* Estilo para el título subrayado moderno */
 .titulo-subrayado {
     display: inline-block;
-    border-bottom: 4px solid #fb8500; /* La línea naranja que pediste */
+    border-bottom: 4px solid #fb8500;
     padding-bottom: 5px;
     margin-bottom: 40px;
-    color: white; /* Resalta sobre el fondo oscuro */
+    color: white;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
-/* Contenedor tipo Grid para los clubes */
+/* Contenedor para los clubes */
 .contenedor-clubes {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -277,7 +268,7 @@ button a {
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Empuja el botón hacia abajo */
+    justify-content: space-between;
     min-height: 250px;
 }
 
@@ -292,7 +283,7 @@ button a {
     color: #fb8500;
 }
 
-/* Etiqueta pequeña (Badge) */
+/* Etiqueta pequeña*/
 .badge {
     position: absolute;
     top: -12px;
@@ -343,17 +334,20 @@ button a {
     text-align: center;
 }
 
-/* Responsivo para móviles */
-@media (max-width: 900px) {
-    .columna-3 {
-        flex: 1 1 100%; /* En móviles ocupan todo el ancho */
-    }
-}
 
 
 /* Ajustes para móviles */
 @media (max-width: 768px) {
     .fila {
         flex-direction: column;
+    }
+    .contenido-vida {
+        flex-direction: column;
+    }
+    .texto-vida {
+        text-align: center;
+    }
+    .columna-3 {
+        flex: 1 1 100%; /* En móviles ocupan todo el ancho */
     }
 }
