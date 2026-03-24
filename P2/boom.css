@@ -1,0 +1,87 @@
+
+/* Forzar que el cuerpo ocupe exactamente el alto de la pantalla */
+body {
+    background-color: #3d3d3d;
+    color: #e0e0e0;
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    height: 100vh; /* 100% del alto de la ventana */
+    overflow: hidden; /* Evita el scroll accidental */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly; /* Distribuye el espacio equitativamente */
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2rem; /* Tamaño más contenido */
+    margin: 0;
+    color: #f05454;
+    text-shadow: 0 0 10px rgba(240, 84, 84, 0.3);
+}
+
+/* Contenedor principal para agrupar elementos */
+.calculator-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    width: 100%;
+}
+
+/* Ajuste de las cuadrículas para que no ocupen demasiado */
+.grids-container {
+    display: flex;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+
+.grid-number {
+    width: 60px;  /* Reducido para pantallas pequeñas */
+    height: 80px;
+    font-size: 2.5rem;
+    background: #222831;
+    border: 2px solid #30475e;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Compactar la botonera */
+.calculator-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    background: #30475e;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.digito {
+    width: 50px;
+    height: 50px;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.revealed {
+    font-weight: bold;
+    background: #f0f0f0;
+}
+
+#display { font-size: 1.8rem; margin: 5px 0; font-family: monospace; }
+#intentos, #info { margin: 2px 0; font-size: 0.9rem; text-align: center; }
+
+.timer-buttons button {
+    padding: 8px 15px;
+    font-size: 1rem;
+    height: auto;
+    width: auto;
+}
+
+
