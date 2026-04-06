@@ -1,11 +1,12 @@
 /* Estilo del canvas */
 body {
     background-color: #000000;
+    
 }
 h1 {
     color: #ffffff;
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     font-family: 'Segoe UI', sans-serif;
 }
 
@@ -16,7 +17,8 @@ canvas {
     border-style: solid;
     border-width: 1px;
     border-color: #ffffff;
-    image-rendering: pixelated; 
+    image-rendering: pixelated;
+
 }
 
 /* Estilo para la imagen de la nave */
@@ -27,5 +29,10 @@ canvas {
 
 #alien {
     width: 50px;
+    display: none;
+}
+
+#laser {
+    width: 5px;
     display: none;
 }

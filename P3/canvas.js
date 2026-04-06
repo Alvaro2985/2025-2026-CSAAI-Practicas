@@ -20,6 +20,10 @@ let aliens = [];
 let velx_alien = 0.25;
 let bajar = false;
 
+// Lasers
+let lasers = [];
+const laserVel = 5; // Velocidad del láser hacia arriba
+
 // Inicializar aliens: 3 filas, 8 columnas
 for(let fila = 0; fila < 3; fila++){
     for(let col = 0; col < 8; col++){
@@ -36,6 +40,10 @@ for(let fila = 0; fila < 3; fila++){
 window.addEventListener('keydown', (e) => {
     if (e.key === "ArrowRight") velx = rapidez;
     if (e.key === "ArrowLeft") velx = -rapidez;
+    if (e.key === " ") {
+        // Disparar láser desde el centro de la nave
+        lasers.push({x: x + anchoImg / 2 - 1, y: y});
+    }
 });
 window.addEventListener('keyup', (e) => {
     if (e.key === "ArrowRight" || e.key === "ArrowLeft") velx = 0;
@@ -66,12 +74,39 @@ function update() {
     }
     bajar = false;
 
+    // Mover lasers
+    for(let i = lasers.length - 1; i >= 0; i--){
+        lasers[i].y -= laserVel;
+        if(lasers[i].y + 10 < 0){
+            lasers.splice(i, 1);
+        }
+    }
+
+    // Verificar colisiones entre lasers y aliens
+    for(let i = lasers.length - 1; i >= 0; i--){
+        for(let j = aliens.length - 1; j >= 0; j--){
+            let l = lasers[i];
+            let a = aliens[j];
+            if(l.x < a.x + a.ancho && l.x + 2 > a.x && l.y < a.y + a.alto && l.y + 10 > a.y){
+                lasers.splice(i, 1);
+                aliens.splice(j, 1);
+                break;
+            }
+        }
+    }
+
     // Borrar lienzo
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Dibujar aliens
     for(let a of aliens){
         ctx.drawImage(alien, a.x, a.y, a.ancho, a.alto);
+    }
+
+    // Dibujar lasers
+    ctx.fillStyle = "red";
+    for(let l of lasers){
+        ctx.fillRect(l.x, l.y, 1, 3);
     }
 
     //-- 2) DIBUJAR LA IMAGEN de la nave
