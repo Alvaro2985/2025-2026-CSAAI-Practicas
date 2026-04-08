@@ -98,14 +98,14 @@ function initializeGame() {
 document.addEventListener('DOMContentLoaded', () => {
     initializeGame();
     
-    // Temporizador para disparos de aliens cada 2 segundos
+    // Temporizador para disparos de aliens
     setInterval(() => {
         if (aliens.length > 0 && !gameOver && !victory) {
             let randomIndex = Math.floor(Math.random() * aliens.length);
             let alien = aliens[randomIndex];
             alienLasers.push({x: alien.x + alien.ancho / 2 - 1, y: alien.y + alien.alto});
         }
-    }, 1000);
+    }, 750);
     
     update();
 });
@@ -250,13 +250,13 @@ function update() {
     // Dibujar nave lasers
     ctx.fillStyle = "red";
     for(let l of lasers){
-        ctx.fillRect(l.x, l.y, 1, 3);
+        ctx.fillRect(l.x, l.y, 3, 6);
     }
 
     // Dibujar alien lasers
     ctx.fillStyle = "green";
     for(let l of alienLasers){
-        ctx.fillRect(l.x, l.y, 2, 4);
+        ctx.fillRect(l.x, l.y, 3, 6);
     }
 
     //-- 2) DIBUJAR LA IMAGEN de la nave
