@@ -1,4 +1,3 @@
-
 const canvas = document.getElementById("canvas");
 const dpr = window.devicePixelRatio || 1;
 let ctx;
@@ -26,6 +25,9 @@ const rapidez = 10;
 let aliens = [];
 let velx_alien = 2; // Velocidad horizontal de los aliens
 let bajar = false;
+let initialAlienCount = 0;
+const baseAlienSpeed = 2;
+const alienSpeedIncrease = 0.18; // Velocidad adicional por cada alien menos
 
 // Lasers
 let lasers = [];
@@ -90,6 +92,8 @@ function initializeGame() {
             });
         }
     }
+
+    initialAlienCount = aliens.length;
     
     gameInitialized = true;
 }
@@ -143,13 +147,18 @@ function update() {
         }
 
         // Mover aliens
+        const currentAlienSpeed = baseAlienSpeed + (initialAlienCount - aliens.length) * alienSpeedIncrease;
+        const alienDirection = velx_alien < 0 ? -1 : 1;
+
         // Verificar si cambiar dirección
-        if (velx_alien > 0 && aliens.some(a => a.x + a.ancho >= logicalWidth)) {
-            velx_alien = -(velx_alien*1.25);
+        if (alienDirection > 0 && aliens.some(a => a.x + a.ancho >= logicalWidth)) {
+            velx_alien = -currentAlienSpeed;
             bajar = true;
-        } else if (velx_alien < 0 && aliens.some(a => a.x <= 0)) {
-            velx_alien = -(velx_alien*1.25);
+        } else if (alienDirection < 0 && aliens.some(a => a.x <= 0)) {
+            velx_alien = currentAlienSpeed;
             bajar = true;
+        } else {
+            velx_alien = alienDirection * currentAlienSpeed;
         }
 
         // Actualizar posiciones de aliens
