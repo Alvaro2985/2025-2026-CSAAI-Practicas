@@ -1,17 +1,10 @@
 
 const canvas = document.getElementById("canvas");
-
-//-- Ajustar el tamaño del canvas para alta resolución
-const rect = canvas.getBoundingClientRect();
 const dpr = window.devicePixelRatio || 1;
-canvas.width = rect.width * dpr;
-canvas.height = rect.height * dpr;
-canvas.style.width = rect.width + 'px';
-canvas.style.height = rect.height + 'px';
-const ctx = canvas.getContext("2d");
-ctx.scale(dpr, dpr);
+let ctx;
+let gameInitialized = false;
 
-//-- Definir el contexto del canvas (ya no es necesario redefinir ctx)
+//-- Definir el contexto del canvas
 const nave = document.getElementById("nave");
 const alien = document.getElementById("alien");
 const explosion = document.getElementById("explosion");
@@ -20,13 +13,12 @@ const victory_sonido = document.getElementById("victory_sonido");
 const gameOver_sonido = document.getElementById("gameOver_sonido");
 const laser_sonido = document.getElementById("laser_sonido");
 
-
 //-- Tamaño que tendrá la imagen dentro del canvas
 const anchoImg = 50;
 const altoImg = 50;
 
-let x = (canvas.width / 2) - (anchoImg / 2)  ; // Posición horizontal (ajustada para que se vea centrada)
-let y = canvas.height - altoImg - 3; // Posición vertical (ajustada para que se vea abajo)
+let x = 0; // Posición horizontal
+let y = 0; // Posición vertical
 let velx = 0;
 const rapidez = 10;
 
@@ -65,26 +57,58 @@ const explosionDuration = 250; // Duración en milisegundos (1/4 segundo)
 // Puntuación
 let score = 0;
 
-// Inicializar aliens: 3 filas, 8 columnas
-for(let fila = 0; fila < 3; fila++){
-    for(let col = 0; col < 8; col++){
-        aliens.push({
-            x: col * (anchoImg+20),
-            y: fila * (altoImg+20) + 80,
-            ancho: anchoImg,
-            alto: altoImg
-        });
+// Variables para tamaño lógico del canvas
+let logicalWidth = 0;
+let logicalHeight = 0;
+
+// Función para inicializar el canvas
+function initializeGame() {
+    if (gameInitialized) return;
+    
+    // Ajustar tamaño del canvas
+    canvas.width = canvas.offsetWidth * dpr;
+    canvas.height = canvas.offsetHeight * dpr;
+    ctx = canvas.getContext("2d");
+    ctx.scale(dpr, dpr);
+    
+    // Guardar tamaños lógicos
+    logicalWidth = canvas.width / dpr;
+    logicalHeight = canvas.height / dpr;
+    
+    // Inicializar posiciones de la nave
+    x = (logicalWidth / 2) - (anchoImg / 2);
+    y = logicalHeight - altoImg - 3;
+    
+    // Inicializar aliens: 3 filas, 8 columnas
+    for(let fila = 0; fila < 3; fila++){
+        for(let col = 0; col < 8; col++){
+            aliens.push({
+                x: col * (anchoImg+20),
+                y: fila * (altoImg+20) + 80,
+                ancho: anchoImg,
+                alto: altoImg
+            });
+        }
     }
+    
+    gameInitialized = true;
 }
 
-// Temporizador para disparos de aliens cada 2 segundos
-setInterval(() => {
-    if (aliens.length > 0) {
-        let randomIndex = Math.floor(Math.random() * aliens.length);
-        let alien = aliens[randomIndex];
-        alienLasers.push({x: alien.x + alien.ancho / 2 - 1, y: alien.y + alien.alto});
-    }
-}, 1000);
+// Esperar a que el documento esté cargado
+document.addEventListener('DOMContentLoaded', () => {
+    initializeGame();
+    
+    // Temporizador para disparos de aliens cada 2 segundos
+    setInterval(() => {
+        if (aliens.length > 0 && !gameOver && !victory) {
+            let randomIndex = Math.floor(Math.random() * aliens.length);
+            let alien = aliens[randomIndex];
+            alienLasers.push({x: alien.x + alien.ancho / 2 - 1, y: alien.y + alien.alto});
+        }
+    }, 1000);
+    
+    update();
+});
 
 // Control de teclado
 window.addEventListener('keydown', (e) => {
@@ -92,7 +116,7 @@ window.addEventListener('keydown', (e) => {
     if (e.key === "ArrowLeft") velx = -rapidez;
     if (e.key === " ") {
         // Disparar láser solo si hay energía suficiente
-        if (currentEnergy >= energyPerShot) {
+        if (currentEnergy >= energyPerShot && gameInitialized) {
             lasers.push({x: x + anchoImg / 2 - 1, y: y});
             currentEnergy -= energyPerShot; // Consumir energía
             laser_sonido.currentTime = 0; // Reiniciar si ya está sonando
@@ -111,7 +135,7 @@ function update() {
 
         // Bordes de la nave
         if (x < 0) x = 0;
-        if (x > canvas.width - anchoImg) x = canvas.width - anchoImg;
+        if (x > logicalWidth - anchoImg) x = logicalWidth - anchoImg;
 
         // Recarga automática progresiva del cargador de energía
         if (currentEnergy < maxEnergy) {
@@ -120,7 +144,7 @@ function update() {
 
         // Mover aliens
         // Verificar si cambiar dirección
-        if (velx_alien > 0 && aliens.some(a => a.x + a.ancho >= canvas.width)) {
+        if (velx_alien > 0 && aliens.some(a => a.x + a.ancho >= logicalWidth)) {
             velx_alien = -(velx_alien*1.25);
             bajar = true;
         } else if (velx_alien < 0 && aliens.some(a => a.x <= 0)) {
@@ -153,7 +177,7 @@ function update() {
         // Mover alien lasers
         for(let i = alienLasers.length - 1; i >= 0; i--){
             alienLasers[i].y += alienLaserVel;
-            if(alienLasers[i].y > canvas.height){
+            if(alienLasers[i].y > logicalHeight){
                 alienLasers.splice(i, 1);
             }
         }
@@ -208,8 +232,10 @@ function update() {
         }
     }
 
+    if (!ctx) return; // Salir si el canvas aún no se ha inicializado
+    
     // Borrar lienzo
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, logicalWidth, logicalHeight);
 
     // Dibujar aliens
     for(let a of aliens){
@@ -244,7 +270,7 @@ function update() {
     // Dibujar barra de energía del cargador
     const energyBarWidth = 200;
     const energyBarHeight = 20;
-    const energyBarX = canvas.width - energyBarWidth - 10;
+    const energyBarX = logicalWidth - energyBarWidth - 10;
     const energyBarY = 10;
     
     // Fondo de la barra (gris oscuro)
@@ -278,24 +304,17 @@ function update() {
         ctx.fillStyle = "red";
         ctx.font = "bold 48px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("GAME OVER", canvas.width / 2 / dpr, canvas.height / 2 / dpr);
+        ctx.fillText("GAME OVER", logicalWidth / 2, logicalHeight / 2);
         ctx.textAlign = "left"; // Reset
     } else if(victory){
         victory_sonido.play();
         ctx.fillStyle = "green";
         ctx.font = "bold 48px Arial";
         ctx.textAlign = "center";
-        ctx.fillText("VICTORY!", canvas.width / 2 / dpr, canvas.height / 2 / dpr);
+        ctx.fillText("VICTORY!", logicalWidth / 2, logicalHeight / 2);
         ctx.textAlign = "left"; // Reset
     }
 
     requestAnimationFrame(update);
 }
-
-// // Asegurarse de que la imagen esté cargada antes de empezar
-// nave.onload = () => {
-//     ctx.drawImage(nave, x, y, anchoImg, altoImg);
-//     update();
-// };
-update();
 
