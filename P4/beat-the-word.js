@@ -37,7 +37,6 @@ let timer = 0;
 let timeInterval;
 let sequenceInterval;
 let prepTimeout;
-let musicEnabled = true;
 
 const cells = document.querySelectorAll('.cell');
 const wordDisplay = document.getElementById('wordDisplay');
@@ -46,10 +45,11 @@ const timeDisplay = document.getElementById('time');
 const statusDisplay = document.getElementById('status');
 const startBtn = document.getElementById('startBtn');
 const stopBtn = document.getElementById('stopBtn');
-const musicBtn = document.getElementById('musicBtn');
+const musicToggle = document.getElementById('musicToggle');
 const wordPairSelect = document.getElementById('wordPair');
 const startLevelSelect = document.getElementById('startLevel');
 const bgMusic = document.getElementById('bgMusic');
+let musicEnabled = musicToggle.checked;
 
 wordPairSelect.addEventListener('change', () => {
     currentPair = wordPairs[wordPairSelect.value];
@@ -62,7 +62,7 @@ startLevelSelect.addEventListener('change', () => {
 
 startBtn.addEventListener('click', startGame);
 stopBtn.addEventListener('click', stopGame);
-musicBtn.addEventListener('click', toggleMusic);
+musicToggle.addEventListener('change', toggleMusic);
 
 function updateGrid() {
     const arrangement = levels[currentLevel - 1] || [0,0,0,0,0,0,0,0];
@@ -187,8 +187,7 @@ function updateDisplays() {
 }
 
 function toggleMusic() {
-    musicEnabled = !musicEnabled;
-    musicBtn.textContent = musicEnabled ? 'Silenciar Música' : 'Activar Música';
+    musicEnabled = musicToggle.checked;
     if (gameRunning) {
         if (musicEnabled) {
             bgMusic.play();
