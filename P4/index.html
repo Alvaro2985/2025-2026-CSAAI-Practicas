@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beat the Word</title>
+    <link rel="stylesheet" href="beat-the-word.css">
+</head>
+<body>
+    <h1>Beat the Word</h1>
+    <div class="container">
+        <div class="game-section">
+            <div id="controls">
+                <label for="wordPair">Pareja de palabras:</label>
+                <select id="wordPair">
+                    <option value="cama-casa">Cama - Casa</option>
+                    <option value="luna-cuna">Luna - Cuna</option>
+                    <option value="pato-gato">Pato - Gato</option>
+                    <option value="queso-beso">Queso - Beso</option>
+                </select>
+                <label for="startLevel">Nivel inicial:</label>
+                <select id="startLevel">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button id="startBtn">Comenzar</button>
+                <button id="stopBtn" disabled>Detener</button>
+                <label for="musicToggle">Música:</label>
+                <input type="checkbox" id="musicToggle" checked>
+            </div>
+            <div id="display">
+                <span>Nivel: <span id="level">0</span></span>
+                <span>Tiempo: <span id="time">0.00</span>s</span>
+                <span>Estado: <span id="status">Listo</span></span>
+            </div>
+            <div id="mainArea">
+                <div id="wordDisplay"></div>
+            </div>
+            <div id="grid">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+            </div>
+        </div>
+        <div class="info-section">
+            <h2>¿Cómo funciona el juego?</h2>
+            <p>El juego "Beat the Word" es un desafío visual y de memoria. Se muestra una cuadrícula de 8 imágenes que representan dos palabras diferentes. Durante la partida, el juego recorre las 8 posiciones en orden, iluminando una imagen cada vez y mostrando la palabra correspondiente en el área principal.</p>
+            <p>Tu objetivo es asociar correctamente cada imagen con su palabra mientras el ritmo se acelera en niveles superiores. ¡Practica tu memoria y velocidad de asociación!</p>
+            <h3>Configuración</h3>
+            <ul>
+                <li><strong>Pareja de palabras:</strong> Elige el conjunto de palabras e imágenes a utilizar.</li>
+                <li><strong>Nivel inicial:</strong> Selecciona desde qué nivel quieres comenzar (del 1 al 5).</li>
+                <li><strong>Música:</strong> Activa o desactiva la música de fondo.</li>
+            </ul>
+            <h3>Controles</h3>
+            <ul>
+                <li><strong>Comenzar:</strong> Inicia la partida con la configuración seleccionada.</li>
+                <li><strong>Detener:</strong> Para la partida en cualquier momento.</li>
+            </ul>
+            <p>¡Disfruta del juego y mejora tu concentración!</p>
+        </div>
+    </div>
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+    <script src="beat-the-word.js"></script>
+</body>
+</html>
