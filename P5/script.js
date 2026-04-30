@@ -41,12 +41,12 @@ class Player extends Entity {
     update(ball) {
     if (!this.isBot) {
 
-        if (keys['ArrowUp']) this.y -= this.speed;
-        if (keys['ArrowDown']) this.y += this.speed;
-        if (keys['ArrowLeft']) this.x -= this.speed;
-        if (keys['ArrowRight']) this.x += this.speed;
-        if (keys['a'] || keys['A']) this.angle -= 0.1;
-        if (keys['d'] || keys['D']) this.angle += 0.1;
+        if (keys.ArrowUp) this.y -= this.speed;
+        if (keys.ArrowDown) this.y += this.speed;
+        if (keys.ArrowLeft) this.x -= this.speed;
+        if (keys.ArrowRight) this.x += this.speed;
+        if (keys.a || keys.A) this.angle -= 0.1;
+        if (keys.d || keys.D) this.angle += 0.1;
     } else {
         
         // 1. Objetivo: Un punto justo detrás del balón respecto a la portería del jugador
@@ -161,6 +161,7 @@ window.addEventListener('keydown', e => {
         }
     }
 });
+
 
 function startGame(mode) {
     gameMode = mode;
